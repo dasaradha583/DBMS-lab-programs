@@ -1,0 +1,116 @@
+SQL> create table players_data(jersey number(4), Name varchar(15),runs integer,Centuries integer);
+
+Table created.
+
+SQL> insert into players_data values(18, 'Virat kohli',25000,80);
+
+1 row created.
+
+SQL> insert into players_data(jersey, name, runs, Centuries) values(&jersey, &name, &runs, &centuries);
+Enter value for jersey: 10
+Enter value for name: 'Sachin'
+Enter value for runs: 330000
+Enter value for centuries: 100
+old   1: insert into players_data(jersey, name, runs, Centuries) values(&jersey, &name, &runs, &centuries)
+new   1: insert into players_data(jersey, name, runs, Centuries) values(10, 'Sachin', 330000, 100)
+
+1 row created.
+
+SQL> insert into players_data values(45, 'Rohit Sharma',18000,45);
+
+1 row created.
+
+SQL> insert into players_data values(17, 'AB Devillers',22000,49);
+
+1 row created.
+
+SQL> insert into players_data values(11, 'Kumar Sangakara',30000,62);
+
+1 row created.
+
+SQL> select * from players_data;
+
+    JERSEY NAME                  RUNS  CENTURIES                                
+---------- --------------- ---------- ----------                                
+        18 Virat kohli          25000         80                                
+        10 Sachin              330000        100                                
+        45 Rohit Sharma         18000         45                                
+        17 AB Devillers         22000         49                                
+        11 Kumar Sangakara      30000         62                                
+
+SQL> select Name, Runs from players_data;
+
+NAME                  RUNS                                                      
+--------------- ----------                                                      
+Virat kohli          25000                                                      
+Sachin              330000                                                      
+Rohit Sharma         18000                                                      
+AB Devillers         22000                                                      
+Kumar Sangakara      30000                                                      
+
+SQL> select * from players_data where centuries>50;
+
+    JERSEY NAME                  RUNS  CENTURIES                                
+---------- --------------- ---------- ----------                                
+        18 Virat kohli          25000         80                                
+        10 Sachin              330000        100                                
+        11 Kumar Sangakara      30000         62                                
+
+SQL> select name,centuries from players_data where centuries>50;
+
+NAME             CENTURIES                                                      
+--------------- ----------                                                      
+Virat kohli             80                                                      
+Sachin                 100                                                      
+Kumar Sangakara         62                                                      
+
+
+SQL> update players_data set runs = 33000 where jersey = 10;
+
+1 row updated.
+
+SQL> select * from players_data;
+
+    JERSEY NAME                  RUNS  CENTURIES                                
+---------- --------------- ---------- ----------                                
+        18 Virat kohli          25000         80                                
+        10 Sachin               33000        100                                
+        45 Rohit Sharma         18000         45                                
+        17 AB Devillers         22000         49                                
+        11 Kumar Sangakara      30000         62                                
+
+SQL> delete players_data where jersey = 45;
+
+1 row deleted.
+
+SQL> select * from players_data;
+
+    JERSEY NAME                  RUNS  CENTURIES                                
+---------- --------------- ---------- ----------                                
+        18 Virat kohli          25000         80                                
+        10 Sachin               33000        100                                
+        17 AB Devillers         22000         49                                
+        11 Kumar Sangakara      30000         62                                
+
+SQL> update players_data set runs = 22000;
+
+4 rows updated.
+
+SQL> select * from players_data;
+
+    JERSEY NAME                  RUNS  CENTURIES                                
+---------- --------------- ---------- ----------                                
+        18 Virat kohli          22000         80                                
+        10 Sachin               22000        100                                
+        17 AB Devillers         22000         49                                
+        11 Kumar Sangakara      22000         62                                
+
+SQL> delete players_data ;
+
+4 rows deleted.
+
+SQL> select * from players_data;
+
+no rows selected
+
+SQL> spool off;

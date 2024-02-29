@@ -1,0 +1,103 @@
+SQL> create table movies_list(movie_name varchar2(20), Genre varchar2(9),release_year number(5), rating number(3,2));
+
+Table created.
+
+SQL> desc movies_list;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ MOVIE_NAME                                         VARCHAR2(20)
+ GENRE                                              VARCHAR2(9)
+ RELEASE_YEAR                                       NUMBER(5)
+ RATING                                             NUMBER(3,2)
+
+SQL> insert into movies_list values('Avatar','Action',2009,7.8);
+
+1 row created.
+
+SQL> insert into movies_list values('Baahubali 2','Drama',2015,8.1);
+
+1 row created.
+
+SQL> insert into movies_list values('Inception','Sci-fi',2010,8.8);
+
+1 row created.
+
+SQL> insert into movies_list values('Interstellar','Sci-fi',2014,8.6);
+
+1 row created.
+
+SQL> insert into movies_list values('Bommarillu','comedy',2005,8.1);
+
+1 row created.
+
+SQL> select * from movies_list;
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Avatar               Action            2009        7.8                          
+Baahubali 2          Drama             2015        8.1                          
+Inception            Sci-fi            2010        8.8                          
+Interstellar         Sci-fi            2014        8.6                          
+Bommarillu           comedy            2005        8.1                          
+
+SQL> select * from movies_list where rating >= 8.4
+  2  
+SQL> select * from movies_list where rating >= 8.4;
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Inception            Sci-fi            2010        8.8                          
+Interstellar         Sci-fi            2014        8.6                          
+
+                                             
+SQL> select * from movies_list where genre = 'Action' or genre = 'Drama';
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Avatar               Action            2009        7.8                          
+Baahubali 2          Drama             2015        8.1                          
+
+SQL> select * from movies_list where genre <> 'Sci-fi';
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Avatar               Action            2009        7.8                          
+Baahubali 2          Drama             2015        8.1                          
+Bommarillu           comedy            2005        8.1                          
+
+SQL> select * from movies_list where release_year Between 2008 and 2013;
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Avatar               Action            2009        7.8                          
+Inception            Sci-fi            2010        8.8                          
+
+SQL> select * from movies_list where release_year in (2009,2015,2005);
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Avatar               Action            2009        7.8                          
+Baahubali 2          Drama             2015        8.1                          
+Bommarillu           comedy            2005        8.1                          
+
+SQL> select * from movies_list where movie_name like 'B%';
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Baahubali 2          Drama             2015        8.1                          
+Bommarillu           comedy            2005        8.1                          
+
+SQL> select * from movies_list where movie_name like 'In_e%';
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Inception            Sci-fi            2010        8.8                          
+Interstellar         Sci-fi            2014        8.6                          
+
+SQL> select * from movies_list where movie_name like '%r';
+
+MOVIE_NAME           GENRE     RELEASE_YEAR     RATING                          
+-------------------- --------- ------------ ----------                          
+Avatar               Action            2009        7.8                          
+Interstellar         Sci-fi            2014        8.6                          
+

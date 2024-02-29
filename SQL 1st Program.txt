@@ -1,0 +1,169 @@
+SQL> create table customers_info(table_no number(3), order_id varchar(5), bill number(8,3));
+
+Table created.
+
+SQL> desc customers_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NO                                           NUMBER(3)
+ ORDER_ID                                           VARCHAR2(5)
+ BILL                                               NUMBER(8,3)
+
+SQL> alter table customers_info add bill_status varchar2(10);
+
+Table altered.
+
+SQL> desc customers_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NO                                           NUMBER(3)
+ ORDER_ID                                           VARCHAR2(5)
+ BILL                                               NUMBER(8,3)
+ BILL_STATUS                                        VARCHAR2(10)
+
+SQL> alter table customers_info modify bill_status varchar2(3) not null;
+
+Table altered.
+
+SQL> desc customers_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NO                                           NUMBER(3)
+ ORDER_ID                                           VARCHAR2(5)
+ BILL                                               NUMBER(8,3)
+ BILL_STATUS                               NOT NULL VARCHAR2(3)
+
+SQL> alter table customers_info drop column bill_status;
+
+Table altered.
+
+SQL> desc customers_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NO                                           NUMBER(3)
+ ORDER_ID                                           VARCHAR2(5)
+ BILL                                               NUMBER(8,3)
+
+SQL> alter table customers_info add constraint primaryKeyConstraint primary key(table_no);
+
+Table altered.
+
+SQL> desc customers_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NO                                  NOT NULL NUMBER(3)
+ ORDER_ID                                           VARCHAR2(5)
+ BILL                                               NUMBER(8,3)
+
+SQL> insert into customers_info values(2, '#202', 2000.45);
+
+1 row created.
+
+SQL> select * from customers_info;
+
+  TABLE_NO ORDER       BILL                                                     
+---------- ----- ----------                                                     
+         2 #202     2000.45                                                     
+
+SQL> truncate table customers_info
+  2  
+SQL> truncate table customers_info;
+
+Table truncated.
+
+SQL> alter table customers_info drop constraint primaryKeyConstraint;
+
+Table altered.
+
+SQL> alter table customers_info add constraint primaryKeyConstraint primary key(order_id);
+
+Table altered.
+
+SQL> desc customers_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NO                                           NUMBER(3)
+ ORDER_ID                                  NOT NULL VARCHAR2(5)
+ BILL                                               NUMBER(8,3)
+
+SQL> insert into customers_info values(2, '#202', 2000.45);
+
+1 row created.
+
+SQL> insert into customers_info values(5, '#202', 900.23);
+insert into customers_info values(5, '#202', 900.23)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.PRIMARYKEYCONSTRAINT) violated 
+
+
+SQL> insert into customers_info values(1, null, 1500.23);
+insert into customers_info values(1, null, 1500.23)
+                                     *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."CUSTOMERS_INFO"."ORDER_ID") 
+
+
+SQL> truncate table customers_id;
+truncate table customers_id
+               *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> truncate table customers_info;
+
+Table truncated.
+
+SQL> alter table customers_info add constraint checkConstraint check(table_no<=15);
+alter table customers_info add constraint checkConstraint check(table_no<=15)
+                                          *
+ERROR at line 1:
+ORA-02264: name already used by an existing constraint 
+
+
+SQL> alter table customers_info add constraint checkTableConstraint check(table_no<=15);
+
+Table altered.
+
+SQL> insert into customers_info values(17, null, 1500.23);
+insert into customers_info values(17, null, 1500.23)
+                                      *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."CUSTOMERS_INFO"."ORDER_ID") 
+
+
+SQL> insert into customers_info values(17, '#300', 1500.23);
+insert into customers_info values(17, '#300', 1500.23)
+*
+ERROR at line 1:
+ORA-02290: check constraint (SYSTEM.CHECKTABLECONSTRAINT) violated 
+
+
+SQL> insert into customers_info values(7, '#300', 1500.23);
+
+1 row created.
+
+SQL> truncate table customers_info;
+
+Table truncated.
+
+SQL> desc customers_info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TABLE_NO                                           NUMBER(3)
+ ORDER_ID                                  NOT NULL VARCHAR2(5)
+ BILL                                               NUMBER(8,3)
+
+SQL> alter table customers_info add constraint defaultTableConstraint default(table_no = 1);
+alter table customers_info add constraint defaultTableConstraint default(table_no = 1)
+                                                                 *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> drop table customers_info;
+
+Table dropped.
+
+SQL> spool off;
